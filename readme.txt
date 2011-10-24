@@ -25,6 +25,7 @@ Follow this steps to install MF2
 2. List of post types and custom taxonomies
 
 == Changelog ==
+= 2.0 =
 * First release
 
 == Frequently Asked Questions ==
