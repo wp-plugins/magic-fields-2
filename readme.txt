@@ -1,4 +1,4 @@
-=== Magic Fields ===
+=== Magic Fields 2 ===
 Contributors: hunk, Gnuget
 Tags: cms, post types, fields, taxonomies
 Tested up to: Wordpress 3.2.1
