@@ -1,6 +1,6 @@
 <?php 
 /*
-Plugin Name: Magic Fields
+Plugin Name: Magic Fields 2
 Plugin URI: http://magicfields.org
 Description: Create custom fields for your post types 
 Version: 2.0
