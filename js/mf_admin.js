@@ -227,13 +227,13 @@ jQuery(document).ready(function($){
   jQuery('.del-link').each(function(){
     id = jQuery(this).next().attr('id');
     check = parent.window.mf_field_id;
-    if(check == ""){}else{
+    if (check){
       set = parent.window.mf_js.mf_image_media_set;
       $(this).before('<a href="#"  class="mf_media_upload button" onclick="mf_set_image_field(\''+id+'\'); return false;">'+set+'</a>');
       $(this).parent().find("input:submit").remove();        
     }
   });
-  
+
   $('.update_field_media_upload').live('click', function(){
     window.mf_field_id = jQuery(this).attr('id');
   });
@@ -244,5 +244,12 @@ jQuery(document).ready(function($){
 	
   $(".mce_add_image , .mce_add_video , .mce_add_audio , .mce_add_media").live('click',function(){
     window.mf_field_id = '';
+	var a = this;
+	// When a mce button is clicked, we have to hotswap the activeEditor instance, else the image will be inserted into the wrong tinyMCE box (current editor)
+	setTimeout( function() {
+		tinyMCE.activeEditor = tinyMCE.EditorManager.getInstanceById( a.id.replace('_add_media', '') );
+		wpActiveEditor = a.id.replace('_add_media', '');
+		}, 500 );
+		
   });
 });
