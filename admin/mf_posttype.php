@@ -1,9 +1,9 @@
 <?php
 
 /**
- *Dashboard
+ * Dashboard
  *
- * Display, add, edit,delete  post types
+ * Display, add, edit, delete post types
  */
 class mf_posttype extends mf_admin {
 
@@ -48,17 +48,6 @@ class mf_posttype extends mf_admin {
           'value' => NULL,
           'description' => ''
         ),
-        'type' => array(
-          'id' => 'posttype-type',
-          'type' => 'text',
-          'label' => __( 'Type', $mf_domain ),
-          'name' => 'mf_posttype[core][type]',
-          'value' => '',
-          'description' => __( 'The type must have less than 20 characters and only are accepted lowercases letters and undescores. Once created the post type, the type cannot be changed', $mf_domain ),
-          'class' => "{ validate:{ required:true, maxlength:20, lowercase:true, messages:{ lowercase:'".__( 'Only  are accepted lowercase characters,numbers or underscores' )."', required:'".__( 'This Field is required', $mf_domain )."', maxlength:'".__( 'This Field must have less than 20 characters' )."' }}}",
-          'div_class' => 'form-required',
-          'readonly'   => $type_readonly
-        ),
         'label' => array(
           'id' => 'posttype-label',
           'type' => 'text',
@@ -66,7 +55,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[core][label]',
           'value' => '',
           'description' => __( 'Singular label of the post type.', $mf_domain ),
-          'class' => "{validate:{required:true,messages:{required:'". __('This Field is required',$mf_domain)."'}}}",
+          'class' => "{validate:{required:true,messages:{required:'". __('This field is required',$mf_domain)."'}}}",
           'div_class' => 'form-required'
         ),
         'labels' => array(
@@ -79,6 +68,17 @@ class mf_posttype extends mf_admin {
           'class' => '',
           'div_class' => ''
         ),
+        'type' => array(
+          'id' => 'posttype-type',
+          'type' => 'text',
+          'label' => __( 'Type name', $mf_domain ),
+          'name' => 'mf_posttype[core][type]',
+          'value' => '',
+          'description' => __( 'Used by the system, the type must have less than 20 characters, only lowercase alphanumeric characters and undescore is accepted. Once the post type is created, the type name cannot be changed.', $mf_domain ),
+          'class' => "{ validate:{ required:true, maxlength:20, lowercase:true, messages:{ lowercase:'".__( 'Only lowercase alphanumeric characters and underscore is accepted' )."', required:'".__( 'This field is required', $mf_domain )."', maxlength:'".__( 'This field must have less than 20 characters' )."' }}}",
+          'div_class' => 'form-required',
+          'readonly'   => $type_readonly
+        ),
         'description' => array(
           'id' => 'posttype-description',
           'type' => 'text',
@@ -88,6 +88,14 @@ class mf_posttype extends mf_admin {
           'description' => __( 'A short descriptive summary of what the post type is.', $mf_domain ),
           'class' => '',
           'div_class' => ''
+        ),
+        'quantity' => array(
+          'id' => 'posttype-quantity',
+          'type' => 'checkbox',
+          'label' => __( 'Quantity', $mf_domain ),
+          'name' => 'mf_posttype[core][quantity]',
+          'value' => 0,
+          'description' => __( 'mark true if you want your post type only has one element.', $mf_domain )
         )
       ),
       'posttype_support' => array(),
@@ -159,22 +167,22 @@ class mf_posttype extends mf_admin {
           'value' => 0,
           'description' => __( 'Whether the post type is hierarchical. Allows Parent to be specified', $mf_domain )
         ),
-				'has_archive' => array(
-					'id' => 'posttype-has-archive',
-					'type' => 'checkbox',
-					'label' => __( 'Has archive', $mf_domain ),
-					'name' => 'mf_posttype[option][has_archive]',
-					'value' => 0,
-					'description' => __( 'Enables post type archives. Will use string as archive slug. Will generate the proper rewrite rules if rewrite is enabled.', $mf_domain )
-					),
-				'has_archive_slug' => array(
-					'id' => 'posttype-has-archive-slug',
-					'type' => 'text',
-					'label' => __( 'Archive slug', $mf_domain ),
-					'name' => 'mf_posttype[option][has_archive_slug]',
-					'value' => '',
-					'description' => __( 'Archive slug. The archive for the post type can be viewed at this slug. Has archives must be checked for this to work.', $mf_domain )
-					),
+        'has_archive' => array(
+            'id' => 'posttype-has-archive',
+            'type' => 'checkbox',
+            'label' => __( 'Has archive', $mf_domain ),
+            'name' => 'mf_posttype[option][has_archive]',
+            'value' => 0,
+            'description' => __( 'Enables post type archives. Will use string as archive slug. Will generate the proper rewrite rules if rewrite is enabled.', $mf_domain )
+        ),
+        'has_archive_slug' => array(
+            'id' => 'posttype-has-archive-slug',
+            'type' => 'text',
+            'label' => __( 'Archive slug', $mf_domain ),
+            'name' => 'mf_posttype[option][has_archive_slug]',
+            'value' => '',
+            'description' => __( 'Archive slug. The archive for the post type can be viewed at this slug. Has archives must be checked for this to work.', $mf_domain )
+        ),
         'rewrite' => array(
           'id' => 'posttype-rewrite',
           'type' => 'checkbox',
@@ -190,6 +198,14 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[option][rewrite_slug]',
           'value' => '',
           'description' => __( 'Prepend posts with this slug - defaults to post type\'s name', $mf_domain )
+        ),
+        'with_front' => array(
+          'id'  => 'posttype-with-front',
+          'type' => 'checkbox',
+          'label' => __( 'With front' ),
+          'name' => 'mf_posttype[option][with_front]',
+          'value' => 1,
+          'description' => __( 'Should the permastruct be prepended with the front base. (example: if your permalink structure is /blog/, then your links will be: false->/news/, true->/blog/news/)', $mf_domain )
         ),
         'query_var' => array(
           'id' => 'posttype-query-var',
@@ -224,7 +240,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][name]',
           'value' => __('Posts',$mf_domain),
           'description' => __( 'General name for the post type, usually plural.', $mf_domain ),
-          'rel' => '%s'
+          'rel' => '$p' // plural, the sign is rather $ than %, because it's more like a variable rather than a sprintf type
         ),
         'singular_name' => array(
           'id' => 'posttype-label-singular-name',
@@ -233,7 +249,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][singular_name]',
           'value' => __('Post',$mf_domain),
           'description' => __( 'Name for one object of this post type. Defaults to value of name.', $mf_domain ),
-          'rel' => '%s' //@todo inflection
+          'rel' => '$s' // singular
         ),
         'add_new' => array(
           'id' => 'posttype-label-add-new',
@@ -242,17 +258,17 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][add_new]',
           'value' => __('Add New',$mf_domain),
           'description' => __( 'General name for the post type, usually plural.', $mf_domain ),
-          'rel' => 'Add %s'
+          'rel' => 'Add $s'
         ),
-			'all_items' => array(
-				'id' => 'posttype-label-all-items',
-				'type' => 'text',
-				'label' => __( 'All', $mf_domain ),
-				'name' => 'mf_posttype[label][all_items]',
-				'value' => __('All',$mf_domain),
-				'description' => __( 'The all items text used in the menu. Default is the Name label.', $mf_domain ),
-				'rel' => 'All %s'
-				),
+        'all_items' => array(
+          'id' => 'posttype-label-all-items',
+          'type' => 'text',
+          'label' => __( 'All', $mf_domain ),
+          'name' => 'mf_posttype[label][all_items]',
+          'value' => __('All',$mf_domain),
+          'description' => __( 'The all items text used in the menu. Default is the Name label.', $mf_domain ),
+          'rel' => 'All $p'
+        ),
         'add_new_item' => array(
           'id' => 'posttype-label-add-new-item',
           'type' => 'text',
@@ -260,7 +276,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][add_new_item]',
           'value' => __('Add New Post',$mf_domain),
           'description' => __( 'The add new item text.', $mf_domain ),
-          'rel' => 'Add New %s'
+          'rel' => 'Add New $s'
         ),
         'edit_item' => array(
           'id' => 'posttype-label-edit-item',
@@ -269,7 +285,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][edit_item]',
           'value' => __('Edit Post',$mf_domain),
           'description' => __( 'General name for the post type, usually plural.', $mf_domain ),
-          'rel' => 'Edit %s'
+          'rel' => 'Edit $s'
         ),
         'new_item' => array(
           'id' => 'posttype-label-new-item',
@@ -278,7 +294,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][new_item]',
           'value' => __('New Post',$mf_domain),
           'description' => __( 'The new item text.', $mf_domain ),
-          'rel' => 'New %s'
+          'rel' => 'New $s'
         ),
         'view_item' => array(
           'id' => 'posttype-label-view-item',
@@ -287,7 +303,7 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][view_item]',
           'value' => __('View Post',$mf_domain),
           'description' => __( 'The view item text.', $mf_domain ),
-          'rel'   => 'View %s'
+          'rel'   => 'View $s'
         ),
         'search_items' => array(
           'id' => 'posttype-label-search-items',
@@ -296,17 +312,17 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][search_items]',
           'value' => __('Search Posts',$mf_domain),
           'description' => __( 'The search items text.', $mf_domain ),
-          'rel' =>  'No %s found'
+          'rel' =>  'Search $p'
         ),
-				'not_found' => array(
-					'id' => 'posttype-label-not-found',
-					'type' => 'text',
-					'label' => __( 'Not found', $mf_domain ),
-					'name' => 'mf_posttype[label][not_found]',
-					'value' => __('No %s found',$mf_domain),
-					'description' => __( 'The not found text. Default is No posts found/No pages found', $mf_domain ),
-					'rel' =>  'No %s found'
-				),
+        'not_found' => array(
+            'id' => 'posttype-label-not-found',
+            'type' => 'text',
+            'label' => __( 'Not found', $mf_domain ),
+            'name' => 'mf_posttype[label][not_found]',
+            'value' => __('No %s found',$mf_domain),
+            'description' => __( 'The not found text. Default is No posts found/No pages found', $mf_domain ),
+            'rel' =>  'No $p found'
+        ),
         'not_found_in_trash' => array(
           'id' => 'posttype-label-not-found-in-trash',
           'type' => 'text',
@@ -314,25 +330,25 @@ class mf_posttype extends mf_admin {
           'name' => 'mf_posttype[label][not_found_in_trash]',
           'value' => __('No posts found in Trash',$mf_domain),
           'description' => __( 'the not found in trash text.', $mf_domain ),
-          'rel' =>  'No %s found in Trash'
+          'rel' =>  'No $p found in Trash'
         ),
-				'parent_item_colon' => array(
-					'id'          => 'posttype-label-parent-item-colon',
-					'type'        => 'text',
-					'label'       => __( 'Parent item colon', $mf_domain ),
-					'name'        => 'mf_posttype[label][parent_item_colon]',
-					'value'       => __('Parent Item:',$mf_domain),
-					'description' => __( 'The same as parent_item, but with colon:', $mf_domain ),
-					'rel'         => __('Parent',$mf_domain) . ' %s:'
-				),
+        'parent_item_colon' => array(
+            'id'          => 'posttype-label-parent-item-colon',
+            'type'        => 'text',
+            'label'       => __( 'Parent item colon', $mf_domain ),
+            'name'        => 'mf_posttype[label][parent_item_colon]',
+            'value'       => __('Parent Item:',$mf_domain),
+            'description' => __( 'The same as parent_item, but with colon:', $mf_domain ),
+            'rel'         => __('Parent',$mf_domain) . ' $s:'
+        ),
         'menu_name' => array(
           'id' => 'posttype-label-menu_name',
           'type' => 'text',
           'label' => __( 'Menu name', $mf_domain ),
           'name' => 'mf_posttype[label][menu_name]',
           'value' => __('Post',$mf_domain),
-          'description' => __( 'The name of menu.', $mf_domain ),
-          'rel' =>  '%s'
+          'description' => __( 'The name of menu, usually plural.', $mf_domain ),
+          'rel' =>  '$p'
         )
       )
     );
@@ -356,6 +372,7 @@ class mf_posttype extends mf_admin {
     }else{
 
       $data = $this->fields_form();
+      
       $post_type_support = array();
       if( isset($post_type['support']) ){
         foreach($post_type['support'] as $k => $v){
@@ -380,11 +397,13 @@ class mf_posttype extends mf_admin {
           }
         }
       }
+
       $this->form_post_type($data);
     }
   }
 
   function form_post_type($data){
+
     global $mf_domain;
     
     $supports = array(
@@ -419,9 +438,13 @@ class mf_posttype extends mf_admin {
 	  <div class="form-field mf_form <?php echo $core['div_class']; ?>">
 	    <?php mf_form_text($core); ?>
 	  </div>
+  <?php elseif($core['type'] == 'checkbox'): ?>
+    <div class="form-field mf_form <?php echo $core['div_class']; ?>">
+    <?php   mf_form_checkbox($core); ?>
+    </div>
 	<?php endif; ?>
 	<?php endforeach; ?>
-	<! / core -->
+	<!-- / core -->
 
 	<!-- supports -->
 	<div class="form-field mf_label_checkbox mf_form">
@@ -461,6 +484,10 @@ class mf_posttype extends mf_admin {
 	      </p>
 	    <?php } ?>
 	  <?php } ?>
+	<p>
+		<?php $cat_post_type = (isset($_GET['post_type'])) ? $_GET['post_type']: ''; ?>
+		<a href="admin.php?page=mf_dispatcher&init=false&mf_section=mf_posttype&mf_action=set_categories&post_type=<?php echo $cat_post_type;?>&TB_iframe=1&width=640&height=541" title="default categories" class="thickbox" onclick="return false;" >set default categories</a>
+		</p>
 	</div>
 	<!-- / taxonomies -->
 
@@ -527,6 +554,83 @@ class mf_posttype extends mf_admin {
     <?php
   }
 
+	public function set_categories(){
+		global $wpdb;
+		$post_type = $_GET['post_type'];
+
+		if(!$post_type){
+			echo "<h3>is necessary that the post type is created</h3>";
+		}else{
+			
+		$all_taxonomies = get_object_taxonomies($post_type,'object');
+		$is_type_categorie = array();
+		foreach($all_taxonomies as  $cat){
+			if($cat->hierarchical == '1'){
+				array_push($is_type_categorie,$cat->name);
+			}
+		}
+	//	pr($is_type_categorie);
+		$customCategoryIds = array();
+		
+		$post_type_key = sprintf('_cat_%s',$post_type);
+		$sql ="SELECT meta_value FROM ".$wpdb->postmeta." WHERE meta_key='".$post_type_key."' ";
+		$check = $wpdb->get_row($sql);
+		
+		if ($check) {
+			$cata = $check->meta_value;
+			$customCategoryIds = maybe_unserialize($cata);
+		}
+		
+		echo '<input type="hidden" id="post_type_name" value="'.$post_type.'"> ';
+		echo '<div id="default-cats">';
+		echo '<div id="resp" style="color: #39A944; display:none;">changes have been saved successfully</div>';
+		foreach($is_type_categorie as $name){
+			echo "<h3>".$name.'</h3>';
+			echo "<div>";
+			$taxonomy = 'category';
+			$term_args=array(
+			  'hide_empty' => false,
+			  'orderby' => 'term_group',
+			  'order' => 'ASC'
+			);
+			$termsOfCategory = get_terms($name,$term_args);
+			$this->PrintNestedCats( $termsOfCategory, 0, 0, $customCategoryIds );
+			echo "</div>";
+		}
+		
+		
+		echo '<p class="submit">';
+		  
+		echo  '<input type="submit" class="button button-primary" name="submit" id="send_set_categories" value="Save categories">';
+		echo '</p>';
+		
+		echo '</div>';
+		
+	}
+	
+			
+
+	}
+	
+	
+	private function PrintNestedCats( $cats, $parent = 0, $depth = 0, $customCategoryIds ) {
+		foreach ($cats as $cat) : 
+			if( $cat->parent == $parent ) {
+				$checked = "";
+				
+				if (@in_array($cat->taxonomy . "-" .$cat->term_id, $customCategoryIds))
+				{
+					$checked = "checked=\"checked\"";
+				}
+				echo str_repeat('&nbsp;', $depth * 4);
+?>					<input type="checkbox" name="custom-write-panel-categories[]" class="dos" value="<?php echo $cat->taxonomy . "-" .$cat->term_id?>" <?php echo $checked?> /> <?php echo $cat->name ?> <br/>
+<?php				
+			$this->PrintNestedCats( $cats, $cat->term_id, $depth+1, $customCategoryIds );
+			}
+		endforeach;
+	}
+	
+	
   /**
    * Save a Post Type
    */
@@ -712,6 +816,7 @@ class mf_posttype extends mf_admin {
           'hierarchical'        => ($tmp->hierarchical)? 1 : 0,
           'rewrite'             => $rewrite,
           'rewrite_slug'        => $rewrite_slug,
+          'with_front'          => ($tmp->with_front)? 1 : 0,
           'query_var'           => ($tmp->query_var)? 1 : 0,
           'can_export'          => ($tmp->can_export)? 1 : 0,
           'show_in_nav_menus'   => ($tmp->show_in_nav_menus)? 1 : 0

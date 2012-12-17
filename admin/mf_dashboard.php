@@ -20,6 +20,8 @@ class mf_dashboard extends mf_admin {
     $custom_taxonomies = $this->get_custom_taxonomies();
     
     print '<div class="wrap">';
+    // print screen icon 	
+    print get_screen_icon('magic-fields');   
     print '<h2>'.__( 'Magic Fields',$mf_domain).'</h2>';
     print '<h3>'.__( 'Post Types', $mf_domain ).'<a href="admin.php?page=mf_dispatcher&mf_section=mf_posttype&mf_action=add_post_type" class="add-new-h2 button">'.__( 'Add new Post Type', $mf_domain ).'</a></h3>';
 
@@ -64,6 +66,8 @@ class mf_dashboard extends mf_admin {
                   $link = wp_nonce_url($link,"delete_post_type_mf_posttype");
                 ?> 
                 <a class="mf_confirm" alt="<?php _e("This action can't be undone, are you sure?", $mf_domain )?>"  href="<?php print $link;?>">Delete</a> 
+								<?php else: ?>
+									| <a href="admin.php?page=mf_dispatcher&init=false&mf_section=mf_posttype&mf_action=set_categories&post_type=<?php echo $pt->name;?>&TB_iframe=1&width=640&height=541" title="default categories" class="thickbox" onclick="return false;" >Set default categories</a>
                  <?php endif; ?>
               </span>
             </div>
@@ -82,7 +86,7 @@ class mf_dashboard extends mf_admin {
     ?>
       <div class="message-box info">
       <p>
-        ooh, you do  haven't created any Custom Taxonomy,  try creating one <a href="<?php print bloginfo('url');?>/wp-admin/admin.php?page=mf_dispatcher&mf_section=mf_custom_taxonomy&mf_action=add_custom_taxonomy">here</a>
+        ooh, you do  haven't created any Custom Taxonomy,  try creating one <a href="admin.php?page=mf_dispatcher&mf_section=mf_custom_taxonomy&mf_action=add_custom_taxonomy">here</a>
       </p>
       </div>
 

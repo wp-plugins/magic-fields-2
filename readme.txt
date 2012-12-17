@@ -1,10 +1,10 @@
 === Magic Fields 2 ===
 Contributors: hunk, Gnuget
 Tags: cms, post types, fields, taxonomies
-Tested up to: Wordpress 3.3.1
+Tested up to: Wordpress 3.5
 Requires at least: 3.1
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=edgar%40programador%2ecom&lc=GB&item_name=Donation%20Magic%20Fields&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Stable tag: 2.0.1
+Stable tag: 2.1
 Description:  Magic Fields 2 is a feature rich Wordpress CMS plugin
 
 == Description ==
@@ -25,6 +25,18 @@ Follow this steps to install MF2
 2. List of post types and custom taxonomies
 
 == Changelog ==
+
+= 2.1 =
+* Now is possible choice a page template per post (when the "page attribute" is checked in the post type configuration)
+* Post type unique, now is possible create post types with only one post, (useful for create static pages)
+* adding "set_front" option at the Post type configuration page
+* New field term type.
+* Issue #158. https://github.com/magic-fields-team/Magic-Fields-2/issues/158
+* Issue #139. https://github.com/magic-fields-team/Magic-Fields-2/issues/139
+* Update the Datepicker Plugin
+* Issue #118 https://github.com/magic-fields-team/Magic-Fields-2/issues/118
+* And much more bugfixes
+
 = 2.0.1 =
 * fixes for WP 3.3.x
 * fixes for Multiline field

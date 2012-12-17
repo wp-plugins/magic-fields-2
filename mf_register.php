@@ -14,7 +14,7 @@ class mf_register{
 
   // register post type
   public function mf_register_post_types(){
-    global $mf_pt_register;
+    global $mf_pt_register,$mf_pt_unique;
 
     $post_types = $this->_get_post_types();
     
@@ -28,6 +28,7 @@ class mf_register{
       $option['query_var'] = ($option['query_var']) ? true : false;
       $option['exclude_from_search'] = ($option['exclude_from_search']) ? true : false;
       $option['labels'] = $p['label'];
+      $option['with_front'] = (isset($option['with_front'])) ? $option['with_front'] : true;
 
 
       if( isset($p['support']) ){
@@ -47,10 +48,10 @@ class mf_register{
 			
 			
       if($option['rewrite'] && $option['rewrite_slug'])
-        $option['rewrite'] = array( 'slug' => $option['rewrite_slug'],'with_front' => true );
+        $option['rewrite'] = array( 'slug' => $option['rewrite_slug'],'with_front' => $option['with_front']);
 
-      
       unset($option['rewrite_slug']);
+      unset($option['with_front']);
       array_push($mf_pt_register,$name);
 
       if($option['menu_position']){
@@ -68,9 +69,15 @@ class mf_register{
       //description
       $option['description'] = $p['core']['description'];
       register_post_type($name,$option);
+
+      //add unique post type
+      if ($p['core']['quantity']) {
+        array_push($mf_pt_unique, "edit.php?post_type=".$name);
+      }
+     
      
     }
-    
+  
   }
 
   public function _get_cap($name){
