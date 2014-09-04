@@ -37,9 +37,9 @@ class mf_register{
         }
       }
 
-      if (!in_array("editor", $option['supports'])) {
-        $option['supports'][] = 'editor';
-      }
+      //always add support for the editor
+      $option['supports'][] = 'editor';
+      $option['supports'] = array_unique($option['supports']);
 
       if( isset($p['taxonomy']) ){
         foreach($p['taxonomy'] as $k => $v){
@@ -70,6 +70,14 @@ class mf_register{
         $option['capabilities'] = $this->_get_cap($option['capability_type']);
       }
       
+      //classic pin image for the menu
+      if ( isset($option['menu_icon']) && empty($option['menu_icon']) )  {
+        unset($option['menu_icon']);
+      }
+       
+      
+
+
       //description
       $option['description'] = $p['core']['description'];
       register_post_type($name,$option);
